@@ -1,0 +1,42 @@
+.SUFFIXES:
+.SUFFIXES : .cpp .o
+
+CC=gcc 
+#CC=g++
+CFLAGS = -D_SOLARIS -D_USE_PACKETLIB -O2
+INCLUDES = -I. -I../pktlib -I../common
+
+#LIBS = -lstdc++ -L../pktlib -Xlinker -Bstatic -lPktLib -Xlinker -Bdynamic -lsocket -lxnet
+
+#LIBS = -lstdc++ -L../pktlib -lPktLib -lsocket -lxnet
+
+LIBS = -L../pktlib -Xlinker -Bstatic -lPktLib -lstdc++ -lnsl -lsocket -Xlinker -Bdynamic -ldl
+
+CFILES= TrapFwdConfig.cpp ../common/ClientSocket.cpp ../common/Config.cpp
+
+OBJECTS = ${CFILES:.cpp=.o}
+
+all:	$(OBJECTS)
+	$(CC) $(CFLAGS) $(INCLUDES) TrapFwdMain.cpp -o trapfwd $(OBJECTS) $(LIBS)
+
+clean:
+	rm -f *~ $(OBJECTS) *.o trapfwd
+
+% : %.cpp
+	$(CC) $(CFLAGS) $(INCLUDES) $< -o $*
+
+%.o : %.cpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $*.o
+
+.c.i :
+	$(CC) $(CFLAGS) $(INCLUDES) -E -C $< > $*.i
+
+.c.s :
+	$(CC) $(CFLAGS) $(INCLUDES) -S $< > $*.s
+
+%.mk:	%.c
+	$(CC) $(INCLUDES) -M $< >$@
+	${edit_depend}
+
+
+

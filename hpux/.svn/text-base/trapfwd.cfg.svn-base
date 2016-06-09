@@ -1,0 +1,79 @@
+#  Copyright (c) 1999-2001 Network Computing Technologies, Inc.
+#  All rights reserved.
+# 
+#  Redistribution and use of executable software is never 
+#  permitted without the express written permission of 
+#  Network Computing Technologies, Inc.
+# 
+#  Distribution of the source is never permitted without 
+#  the express written permission of 
+#  Network Computing Technologies, Inc.
+# 
+#  THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+#  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+#  WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+#
+#  Welcome to version 2.5 of trapfwd from Network Computing Technologies, Inc.
+#
+#  Notes on using trapfwd:
+#
+#  this is the port on which traps are expected to be received
+#  typically it is udp port 162 as I know you all know
+#  therefore, the default is udp port 162.
+
+ListenPort:162
+
+# repeated as many times as their are destinations
+# TrapProtocol can be either UDP or TCP to the specified
+# host and port
+
+TrapHost:192.168.1.9
+TrapPort:162
+TrapProtocol:UDP
+
+#TrapHost:joey
+#TrapPort:162
+#TrapProtocol:TCP
+
+#TrapHost:
+#TrapPort:
+#TrapProtocol:
+
+# new to version 2.5 
+# Logging
+# The following parameter specifies a log file to which trap 
+# data will be written:
+LogFile:trapfwd.log
+
+# The following specifies the format of trap data written to the log file
+FormatString:%T%S%v%c%g%s%t%i%o%bOTD
+# %v - print version 0 for V1, 1 for V2
+# %c - print community string
+# %g - print generic type (V1 only)
+# %s - print specific type (V1 only)
+# %t - print timestamp
+# %i - print sender's IP address
+# %o - print sender's OID (V1 only)
+# %b - print varbind data; MUST be followed by one or more of the following:
+# O - print varbind Oid
+# T - print varbind Type
+# D - print varbind Data
+# These can be specified in any order (except the %b must always be 
+# followed by 'O', 'T', and/or 'D').  Here's a couple of examples:
+# %i%bOTD - prints sender's IP and all varbind data
+# %v%i%bOD%c - prints version, sender's IP, varbind OID and Data, and
+# community string.
+
+# also new to version 2.5
+# Listening Interface
+# The following parameter specifies which interface to bind to when
+# trapfwd listens for traps.  This parameter is for systems with multiple
+# interfaces only.  Leave commented out to let the system decide (INADDR_ANY).
+# InterfaceIp:127.0.0.1
+
+# new to version 2.6
+# the above mentioned FormatString contains two new formatting characters:
+# %T and %S.  %T will output the trap's timestamp in a human readable 
+# form.  %S will output the system's (on which trapfwd is running) current
+# date and time
+

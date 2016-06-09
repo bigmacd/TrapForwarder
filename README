@@ -1,0 +1,49 @@
+
+VERSION 2.7
+
+The Trap Forwarder program receives traps on any port 
+(default is 162, of course) and forwards them to any destinations 
+(host and port - again the port defaults to 162).
+
+All destinations and other configurable options are specified 
+in the configuration file (default is trapfwd.cfg)
+
+To "Install" on Unix/Linux, please consult the INSTALL file.
+
+Running the program:
+
+  You can start trapfwd from the command line:
+
+  >trapfwd
+
+  which is the same as:
+
+  >trapfwd -f trapfwd.cfg
+
+  Of course, you could specify a different configuration file:
+
+  >trapfwd -f myTrapFwd.cfg
+
+  Please refer to the default configuration file for instructions on 
+  modifying it for your particular configuration.
+
+  The -o option causes trapfwd to output, periodically, run-time data (/tmp/trapfwd.stat for Unix/Linux, trapfwd.stat (current directory) for windows.
+
+  Unix/Linux Only:
+    To run trapfwd as a daemon on unix variants, specify the -d option
+
+    >trapfwd -d
+
+    Sending trapfwd a SIGUSR1 (kill -USR1 <pid>) will cause trapfwd to spew some
+    run-time data to /tmp/trapfwd.stat
+
+
+Please provide comments and suggestions via the 'contact us' page at http://www.trapreceiver.com.  If you are
+reporting problems running trapfwd on unix variants, please also include with
+your email message the file /tmp/trapfwd.err
+
+Happy Trapping!
+
+
+trapreceiver.com
+
